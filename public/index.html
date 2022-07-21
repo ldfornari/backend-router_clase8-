@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend cuarta entrega</title>
+</head>
+<body>
+    
+    <form action="/api/products">
+      <h2>Cargar un nuevo producto</h2> 
+      <label>Nombre de pruducto: </label>
+      <input type="text" name="name" />
+      <br><br>
+      <label>Precio: </label>
+      <input type="text" name="price" />
+      <br><br>
+      <label>url de la imagen: </label>
+      <input type="text" name="image" />
+      <br><br>
+      <input type="submit" value="Guardar" />
+    </form>
+    <style>
+        body {
+            background-color: black;
+        }
+        form {
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: rgb(161, 201, 201);
+            padding: 20px;
+            margin: 10px auto;
+            width: 50vh;
+            text-align: right; 
+        }
+    </style>
+</body>
+</html>
