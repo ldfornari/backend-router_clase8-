@@ -1,52 +1,63 @@
 const express = require("express")
-const Product = require("../controllers/controllers")
+const Product = require("../controllers/product.controllers")
 const productsRouter = express.Router()
 const listProducts = require("../listProducts")
 
+productsRouter.get("/productos", (req, res) => {  
+    console.log("get /productos")
+    const products = Product.getAll()  
+    res.send(products)
+})
+
+productsRouter.post("/productos", (req, res) => {    
+    const product = Product.create(req.body.name, req.body.price, req.body.image)
+    console.log("en metodo post")
+    res.send(product)
+
+    // const newProduct = {
+    //     name: req.body.name,
+    //     price: req.body.price,
+    //     image: req.body.image
+    // }
+    // const product = Product.create(newProduct.name, newProduct.price, newProduct.image)
+    // res.send(product)
+})
+
+productsRouter.get("/productos/:id", (req, res) => {
+    const {id} = req.params
+   // const product = Product.findOne(id)
+    res.send(listProducts.findOne(id)) 
+})
+
+productsRouter.put("/productos/:id", (req, res) => {
+    const { id } = req.params   
+    const product = Product.update(id, req.body.name, req.body.price, req.body.image)
+    res.send(product)
+    // const newProducto = {
+    //     id,
+    //     name: req.body.name,
+    //     price: req.body.price,
+    //     image: req.body.image
+    //     }
+    // res.send(listProducts.update(id, newProducto.name, newProducto.price, newProducto.image))    
+})
+
+productsRouter.delete("/productos/:id", (req, res) => {
+    const { id } = req.params   
+    const product = Product.delete(id)
+    res.send(product)
+
+    // res.send(listProducts.remove(id))
+})
 
 
-const list = () => {
-    data = listProducts.map((res) => {
-     return res
-  })
-   return data
- }
- 
- const findOne = (id) => {
-   data = listProducts.filter((product) => product.id == id)
-     if (id <= 0 || id > listProducts.length) return { error: 'Producto no encontrado' }
-   return data
- }
- 
- const add = (name, price, image) => {
-     data = listProducts.map((res) => {
-       return res
-     })   
-     data.push({ id: data.length + 1, name, price, image} )
-     listProducts.push(data[data.length - 1])
-   return data
- }
- 
- const remove = (id) => {
-     if (id <= 0 || id > listProducts.length) return { error: 'Producto no encontrado' }  
-     data = listProducts.splice(id -1, 1)  
-   return data
-  }
- 
- const update = (id, name, price, image) => {
-     if (id <= 0 || id > listProducts.length) return { error: 'Producto no encontrado' }
-     data = products.splice(id -1, 1 ,{ id, name, price, image })
-   return data
- }
- 
- module.exports = { add, list, findOne, remove, update }
 
-// productsRouter.get("/api/products", (req, res) => {
+// productsproductsRouter.get("/api/products", (req, res) => {
 //   const products = Product.getAll()
 //   res.send(products)
 // })
 
-// productsRouter.get("/:id", (req, res) => {
+// productsproductsRouter.get("/:id", (req, res) => {
 //   const {id} = req.params
 //   res.send(listProducts.findOne(parseInt(id)))
 // })
@@ -57,4 +68,4 @@ const list = () => {
 //   res.status(201).send(product)
 // })
 
-// module.exports = productsRouter
+module.exports = productsRouter
